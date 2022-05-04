@@ -6,6 +6,7 @@ import 'element-ui/lib/theme-chalk/index.css';
 /* 引入swiper */
 import VueAwesomeSwiper from 'vue-awesome-swiper'
 import 'swiper/css/swiper.css'
+import vuetify from './plugins/vuetify'
 Vue.use(VueAwesomeSwiper /* { default options with global component } */ )
 
 
@@ -15,5 +16,6 @@ Vue.config.productionTip = false
 
 new Vue({
     router,
+    vuetify,
     render: h => h(App)
 }).$mount('#app')

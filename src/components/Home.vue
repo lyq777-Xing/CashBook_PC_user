@@ -7,8 +7,9 @@
           </el-col>
           <el-col class="right_header" :span="6">
             <el-button class="right_btn" @click="gohome">首页</el-button>
-            <el-button class="right_btn">记账</el-button>
-            <el-button class="right_btn">登录</el-button>
+            <el-button class="right_btn" >记账</el-button>
+            <el-button class="right_btn"  @click="GoAboutMe">关于我们</el-button>
+            <el-button class="right_btn" @click="GoLogin">登录</el-button>
             <el-button class="right_btn">注册</el-button>
           </el-col>
         </el-row>
@@ -17,6 +18,8 @@
         <swiper class="swiper"  effect="fade" :options="swiperOption" >
               <swiper-slide><img class="banner" src="../assets/banner2.png" alt=""></swiper-slide>
               <swiper-slide><img class="banner" src="../assets/banner1.png" alt=""></swiper-slide>
+              <swiper-slide><img class="banner" src="../assets/banner3.png" alt=""></swiper-slide>
+              <swiper-slide><img class="banner" src="../assets/banner4.png" alt=""></swiper-slide>
               <div class="swiper-pagination" slot="pagination"></div>
               <div class="swiper-button-prev" slot="button-prev"></div>
               <div class="swiper-button-next" slot="button-next"></div>
@@ -64,9 +67,30 @@ import js from '../../src/script.js'
         }
       }
     },
+    mounted(){
+      // 监听窗口大小是否发生变化，发生变化则进行刷新
+      window.onresize = () => {
+      return (() => {
+        this.$nextTick(() => {
+          location.reload()
+        });
+      })();
+    };
+    },
+    created(){
+      // location.reload()
+    },
     methods:{
       gohome(){
         this.$router.push("/home")
+        // this.$router.go(0) 
+        location.reload()
+      },
+      GoLogin(){
+        this.$router.push("/login")
+      },
+      GoAboutMe(){
+        this.$router.push("/aboutme")
       }
     }
   }
