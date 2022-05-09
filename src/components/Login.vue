@@ -19,23 +19,38 @@
             <img class="left" src="../assets/login3.gif" alt="">
             <div class="right">
               <div class="form">
-                <el-form :model="dataForm" :rules="loginRules" ref="dataForm" label-width="70px" class="demo-ruleForm">
-                  <el-form-item label="用户名" prop="username">
-                    <el-input v-model="dataForm.name"></el-input>
-                  </el-form-item>
-                  <el-form-item label="密码" prop="password">
-                    <el-input v-model="dataForm.password"></el-input>
-                  </el-form-item>
-                  <el-form-item>
-                    <v-btn type="primary" @click="submitForm('dataForm')" style="background-color:#FFD5E9;color:#F78CFF">登录</v-btn>
-                  </el-form-item>
-                </el-form>
+                 <el-tabs v-model="activeName" @tab-click="handleClick">
+                  <el-tab-pane label="账号密码登录" name="first">
+                    <el-form :model="dataForm" :rules="loginRules" ref="dataForm" label-width="70px" class="demo-ruleForm">
+                      <el-form-item label="用户名" prop="username">
+                        <el-input v-model="dataForm.name"></el-input>
+                      </el-form-item>
+                      <el-form-item label="密码" prop="password">
+                        <el-input v-model="dataForm.password"></el-input>
+                      </el-form-item>
+                      <el-form-item>
+                        <v-btn type="primary" @click="submitForm('dataForm')" style="background-color:#FFD5E9;color:#F78CFF">登录</v-btn>
+                      </el-form-item>
+                    </el-form>
+                  </el-tab-pane>
+                  <el-tab-pane label="手机号登录" name="second">
+                    <el-form :model="LoginPhoneForm" :rules="LoginPhoneFormRules" ref="LoginPhoneForm" label-width="70px" class="demo-ruleForm">
+                      <el-form-item label="手机号" prop="phone">
+                        <el-input v-model="LoginPhoneForm.phone"></el-input>
+                      </el-form-item>
+                      <el-form-item>
+                        <v-btn type="primary" @click="submitForm('LoginPhoneForm')" style="background-color:#FFD5E9;color:#F78CFF">登录</v-btn>
+                      </el-form-item>
+                    </el-form>
+                  </el-tab-pane>
+                </el-tabs>
+                
                 <el-row :gutter="10" class="forgetAndAdminLoginBtn">
                   <el-col :span="12"> 
                     <v-btn class="forgetBtn" outlined style="opacity: 0.9;background-color:#fffffd;color:#37546D">忘记密码？</v-btn>
                   </el-col>
                   <el-col :span="12">
-                    <v-btn class="adminLogin" outlined style="opacity: 0.9;background-color:#fffffd;color:#37546D">管理员登录</v-btn>
+                    <v-btn class="adminLogin" outlined style="opacity: 0.9;background-color:#fffffd;color:#37546D" @click="GoAdminLogin">管理员登录</v-btn>
                   </el-col>
                 </el-row>
                 <!-- <v-btn class="forgetBtn" outlined style="opacity: 0.9;background-color:#fffffd;color:#37546D">忘记密码？</v-btn> -->
@@ -61,7 +76,14 @@ export default {
       loginRules:{
         username:[{ required: true, message: '请输入用户名', trigger: 'blur' }],
         password:[{ required: true, message: '请输入密码', trigger: 'blur' }],
-      }
+      },
+      LoginPhoneForm:{
+        phone:''
+      },
+      LoginPhoneFormRules:{
+        phone:[{ required: true, message: '请输入手机号', trigger: 'blur' }],
+      },
+      activeName:'first'
     }
   },
   methods:{
@@ -75,6 +97,12 @@ export default {
     },
     GoAboutMe(){
       this.$router.push("/aboutme")
+    },
+    GoAdminLogin(){
+      this.$router.push("/adminlogin")
+    },
+    handleClick(){
+
     }
   }
 }
@@ -182,5 +210,9 @@ export default {
     left: 50%;
     top: 50%;
     transform: translate(-50%,-50%);
+  }
+  /deep/.el-tabs__nav-scroll {
+    overflow: hidden;
+    height: 120px;
   }
 </style>

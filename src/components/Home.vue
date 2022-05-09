@@ -5,7 +5,7 @@
           <el-col :span="4">
             <img class="logo_header" src="../assets/logo.png" alt="">
           </el-col>
-          <el-col class="right_header" :span="6">
+          <el-col class="right_header" :span="8">
             <el-button class="right_btn" @click="gohome">首页</el-button>
             <el-button class="right_btn" >记账</el-button>
             <el-button class="right_btn"  @click="GoAboutMe">关于我们</el-button>
@@ -46,7 +46,7 @@
 </template>
 
 <script>
-import js from '../../src/script.js'
+import js from '../plugins/script.js'
   export default {
     data(){
       return{

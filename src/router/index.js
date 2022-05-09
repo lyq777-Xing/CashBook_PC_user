@@ -5,6 +5,7 @@ import Home from '../components/Home.vue'
 import Index from '../components/Index.vue'
 import Login from '../components/Login.vue'
 import AboutMe from '../components/AboutMe.vue'
+import AdminLogin from '../components/admin/LoginAdmin.vue'
 
 Vue.use(VueRouter)
 
@@ -27,6 +28,9 @@ const routes = [{
 }, {
     path: '/aboutme',
     component: AboutMe
+}, {
+    path: '/adminlogin',
+    component: AdminLogin
 }]
 
 const router = new VueRouter({
