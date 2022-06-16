@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,shrink-to-fit=no">
+    <meta name="description" content="Quick Website UI Kit is an innovative HTML template solution which combines beautiful design and flawless functionality.">
+    <meta name="author" content="Webpixels">
+    <title>Quick – Website UI Kit (FREE)</title>
+    <style>
+        @keyframes hidePreloader {
+            0% {
+                width: 100%;
+                height: 100%
+            }
+            100% {
+                width: 0;
+                height: 0
+            }
+        }
+        
+        body>div.preloader {
+            position: fixed;
+            background: #fff;
+            width: 100%;
+            height: 100%;
+            z-index: 1071;
+            opacity: 0;
+            transition: opacity .5s ease;
+            overflow: hidden;
+            pointer-events: none;
+            display: flex;
+            align-items: center;
+            justify-content: center
+        }
+        
+        body:not(.loaded)>div.preloader {
+            opacity: 1
+        }
+        
+        body:not(.loaded) {
+            overflow: hidden
+        }
+        
+        body.loaded>div.preloader {
+            animation: hidePreloader .5s linear .5s forwards
+        }
+    </style>
+    <script>
+        window.addEventListener("load", function() {
+            setTimeout(function() {
+                document.querySelector("body").classList.add("loaded")
+            }, 300)
+        })
+    </script>
+    <link rel="icon" href="static/picture/favicon.png" type="image/png">
+    <link rel="stylesheet" href="static/css/all.min.css">
+    <link rel="stylesheet" href="static/css/quick-website.css">
+    <link rel="stylesheet" href="static/css/docs.css">
+</head>
+
+<body class="docs">
+    <header class="header" id="header-main">
+        <nav class="navbar navbar-main navbar-expand-lg fixed-top navbar-shadow navbar-light bg-white border-bottom" id="navbar-main">
+            <div class="container-fluid justify-content-between">
+                <div class="navbar-user d-lg-none">
+                    <ul class="navbar-nav flex-row align-items-center">
+                        <li class="nav-item"><a href="#" class="nav-link nav-link-icon sidenav-toggler" data-action="sidenav-pin" data-target="#sidenav-main"><i data-feather="menu"></i></a></li>
+                    </ul>
+                </div>
+                <a class="navbar-brand" href=""><img alt="Image placeholder" src="static/picture/蓝鲸记账 (2).png" id="navbar-logo"> <sup class="text-muted text-xs text-uppercase">Docs</sup></a>
+                <ul class="navbar-nav flex-row align-items-center d-lg-none">
+                    <li class="nav-item"><a href="index.html" class="nav-link nav-link-icon"><i data-feather="eye"></i></a></li>
+                </ul>
+                <div class="collapse navbar-collapse" id="navbar-main-collapse">
+                    <ul class="navbar-nav align-items-center mx-auto">
+                        <li class="nav-item"><a class="nav-link" href="index1.html">Getting started</a></li>
+                        <!-- <li class="nav-item"><a class="nav-link" href="alerts.html">Components</a></li> -->
+                        <!-- <li class="nav-item"><a class="nav-link" href="javascript:;" target="_blank">Support</a></li> -->
+                    </ul>
+                </div><a href="index.html" class="btn btn-sm btn-primary ml-4 btn-icon d-none d-lg-inline-flex"><span class="btn-inner--icon"><i data-feather="chevron-left"></i></span> <span class="btn-inner--text">Back to Blue Whale</span></a></div>
+        </nav>
+    </header>
+    <div class="container-fluid container-docs">
+        <nav class="sidenav navbar navbar-vertical navbar-expand-xs navbar-light bg-white" id="sidenav-main">
+            <div class="scrollbar-inner px-4">
+                <div class="docs-sidebar pt-6 pt-lg-7">
+                    <h6 class="mt-4">Getting started</h6>
+                    <ul class="nav flex-column">
+                        <!-- <li class="nav-item"><a href="quick-start.html" class="nav-link">Quick start</a></li> -->
+                        <!-- <li class="nav-item"><a href="build-tools.html" class="nav-link">Build tools</a></li> -->
+                    </ul>
+                    <!-- <h6 class="mt-4">Styleguide</h6>
+                    <ul class="nav flex-column">
+                        <li class="nav-item"><a href="colors.html" class="nav-link">Colors</a></li>
+                        <li class="nav-item"><a href="typography.html" class="nav-link">Typography</a></li>
+                        <li class="nav-item"><a href="icons.html" class="nav-link">Icons</a></li>
+                    </ul> -->
+                    <!-- <h6 class="mt-4">Components</h6>
+                    <ul class="nav flex-column">
+                        <li class="nav-item"><a href="alerts.html" class="nav-link">Alerts</a></li>
+                        <li class="nav-item"><a href="avatar.html" class="nav-link">Avatar</a></li>
+                        <li class="nav-item"><a href="badge.html" class="nav-link">Badge</a></li>
+                        <li class="nav-item"><a href="breadcrumb.html" class="nav-link">Breadcrumb</a></li>
+                        <li class="nav-item"><a href="buttons.html" class="nav-link">Buttons</a></li>
+                        <li class="nav-item"><a href="card.html" class="nav-link">Card</a></li>
+                        <li class="nav-item"><a href="collapse.html" class="nav-link">Collapse</a></li>
+                        <li class="nav-item"><a href="dropdowns.html" class="nav-link">Dropdowns</a></li>
+                        <li class="nav-item"><a href="forms.html" class="nav-link">Forms</a></li>
+                        <li class="nav-item"><a href="input-group.html" class="nav-link">Input group</a></li>
+                        <li class="nav-item"><a href="modal.html" class="nav-link">Modal</a></li>
+                        <li class="nav-item"><a href="navs.html" class="nav-link">Navs</a></li>
+                        <li class="nav-item"><a href="navbar.html" class="nav-link">Navbar</a></li>
+                        <li class="nav-item"><a href="pagination.html" class="nav-link">Pagination</a></li>
+                        <li class="nav-item"><a href="popovers.html" class="nav-link">Popovers</a></li>
+                        <li class="nav-item"><a href="progress.html" class="nav-link">Progress</a></li>
+                        <li class="nav-item"><a href="spinners.html" class="nav-link">Spinners</a></li>
+                        <li class="nav-item"><a href="tables.html" class="nav-link">Tables</a></li>
+                        <li class="nav-item"><a href="toasts.html" class="nav-link">Toasts</a></li>
+                        <li class="nav-item"><a href="tooltips.html" class="nav-link">Tooltips</a></li>
+                    </ul> -->
+                    <!-- <h6 class="mt-4">Plugins</h6>
+                    <ul class="nav flex-column">
+                        <li class="nav-item"><a href="animate.html" class="nav-link">Animate</a></li>
+                        <li class="nav-item"><a href="google-maps.html" class="nav-link">Google maps</a></li>
+                    </ul> -->
+                </div>
+            </div>
+        </nav>
+        <div class="main-content row position-relative pb-5">
+            <div class="col-xl-9 docs-content pb-5">
+                <div class="docs-title">
+                    <h1>Welcome</h1>
+                    <p class="lead mb-0"></p>
+                </div>
+            </div>
+            <div class="col-xl-3 docs-sidebar d-none d-xl-block"></div>
+        </div>
+    </div>
+    <script src="static/js/jquery.min.js"></script>
+    <script src="static/js/bootstrap.bundle.min.js"></script>
+    <script src="static/js/svg-injector.min.js"></script>
+    <script src="static/js/feather.min.js"></script>
+    <script src="static/js/highlight.min.js"></script>
+    <script src="static/js/clipboard.min.js"></script>
+    <script src="static/js/quick-website.js"></script>
+    <script>
+        feather.replace({
+            width: "1em",
+            height: "1em"
+        })
+    </script>
+    <script>
+        ! function(e, t, a, n, g) {
+            e[n] = e[n] || [], e[n].push({
+                "gtm.start": (new Date).getTime(),
+                event: "gtm.js"
+            });
+            var m = t.getElementsByTagName(a)[0],
+                r = t.createElement(a);
+            r.async = !0, r.src = "static/js/gtm.js", m.parentNode.insertBefore(r, m)
+        }(window, document, "script", "dataLayer")
+    </script>
+</body>
+
+</html>

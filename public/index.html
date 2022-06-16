@@ -1,19 +1,55 @@
 <!DOCTYPE html>
-<html lang="en">
-  <head>
+<html lang="">
+
+<head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width,initial-scale=1.0">
-    <link rel="icon" href="<%= BASE_URL %>favicon.ico">
-    <title><%= htmlWebpackPlugin.options.title %></title>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@mdi/font@latest/css/materialdesignicons.min.css">
-  </head>
-  <body>
+    <link rel="icon" href="static/picture/favicon.png" type="image/png">
+    <title>
+        Blue Whale
+    </title>
+    <script>
+    </script>
+
+    <link rel="icon" href="static/picture/favicon.png" type="image/png">
+    <link rel="stylesheet" href="static/css/all.min.css">
+    <link rel="stylesheet" href="static/css/quick-website.css" id="stylesheet">
+</head>
+
+<body>
     <noscript>
-      <strong>We're sorry but <%= htmlWebpackPlugin.options.title %> doesn't work properly without JavaScript enabled. Please enable it to continue.</strong>
+      <strong>
+        We're sorry but <%= htmlWebpackPlugin.options.title %> doesn't work properly without JavaScript enabled. Please enable it to continue.
+      </strong>
     </noscript>
+    <script src="static/js/jquery.min.js"></script>
+    <script src="static/js/bootstrap.bundle.min.js"></script>
+    <script src="static/js/highlight.min.js"></script>
+    <script src="static/js/clipboard.min.js"></script>
+    <script src="static/js/svg-injector.min.js"></script>
+    <script src="static/js/feather.min.js"></script>
+    <script src="static/js/quick-website.js"></script>
+    <script src="https://cdn.dingxiang-inc.com/ctu-group/captcha-ui/index.js" crossorigin="anonymous" id="dx-captcha-script"></script>
+    <script>
+        feather.replace({
+            width: "1em",
+            height: "1em"
+        })
+    </script>
+    <script>
+        ! function(e, t, a, n, g) {
+            e[n] = e[n] || [], e[n].push({
+                "gtm.start": (new Date).getTime(),
+                event: "gtm.js"
+            });
+            var m = t.getElementsByTagName(a)[0],
+                r = t.createElement(a);
+            r.async = !0, r.src = "static/js/gtm.js", m.parentNode.insertBefore(r, m)
+        }(window, document, "script", "dataLayer")
+    </script>
     <div id="app"></div>
     <!-- built files will be auto injected -->
-  </body>
+</body>
+
 </html>

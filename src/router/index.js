@@ -1,12 +1,12 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-// import { component } from 'vue/types/umd'
 import Home from '../components/Home.vue'
 import Index from '../components/Index.vue'
 import Login from '../components/Login.vue'
 import AboutMe from '../components/AboutMe.vue'
-import AdminLogin from '../components/admin/LoginAdmin.vue'
-
+import Use from '../components/Use.vue'
+import Doc from '../components/Doc.vue'
+import PaySuccess from '../components/PaySuccess.vue'
 Vue.use(VueRouter)
 
 const routes = [{
@@ -29,8 +29,14 @@ const routes = [{
     path: '/aboutme',
     component: AboutMe
 }, {
-    path: '/adminlogin',
-    component: AdminLogin
+    path: '/use',
+    component: Use
+}, {
+    path: '/doc',
+    component: Doc
+}, {
+    path: '/paysuccess',
+    component: PaySuccess
 }]
 
 const router = new VueRouter({
