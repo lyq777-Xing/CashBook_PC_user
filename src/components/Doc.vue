@@ -8,7 +8,7 @@
                         <li class="nav-item"><a href="#" class="nav-link nav-link-icon sidenav-toggler" data-action="sidenav-pin" data-target="#sidenav-main"><i data-feather="menu"></i></a></li>
                     </ul>
                 </div>
-                <span @click="gohome" class="navbar-brand" ><img alt="Image placeholder" src="static/picture/蓝鲸记账 (2).png" id="navbar-logo">  <sup class="text-muted text-xs text-uppercase">Docs</sup></span>
+                <span @click="gohome" class="navbar-brand" ><img alt="Image placeholder" src="https://cashbook-1310707740.cos.ap-shanghai.myqcloud.com/logo2%20(2).png" id="navbar-logo">  <sup class="text-muted text-xs text-uppercase">Docs</sup></span>
                 <ul class="navbar-nav flex-row align-items-center d-lg-none">
                     <li class="nav-item"><span @click="gohome" class="nav-link nav-link-icon"><i data-feather="eye"></i></span></li>
                 </ul>

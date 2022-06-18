@@ -26,7 +26,7 @@
                         <el-input v-model="dataForm.username"></el-input>
                       </el-form-item>
                       <el-form-item label="密码" prop="password">
-                        <el-input v-model="dataForm.password"></el-input>
+                        <el-input type="password" v-model="dataForm.password"></el-input>
                       </el-form-item>
                       <el-form-item>
                         <div ref="demo" style="margin:0 auto"></div>

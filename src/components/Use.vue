@@ -14,42 +14,172 @@
         </el-row>
       </el-header>
       <el-main>
-        <el-tabs :tab-position="tabPosition" style="height: 200px;">
+        <el-tabs :tab-position="tabPosition" style="height: 100%;">
           <el-tab-pane label="个人信息">
-            <el-card>
-              个人信息
-            </el-card>
+            <img style="width:200px" :src="imgurl" alt="">
+            <v-form
+              style="width:500px;margin:0 auto;"
+              ref="form"
+              v-model="valid"
+              lazy-validation
+            >
+              <v-text-field
+                v-model="data.userName"
+                :counter="10"
+                :rules="nameRules"
+                label="Name"
+                required
+              ></v-text-field>
+
+              <v-text-field
+                v-model="data.userEmail"
+                label="E-mail"
+              ></v-text-field>
+
+              <v-text-field
+                disabled
+                v-model="data.userPhone"
+                :rules="phoneRules"
+                label="phone"
+                required
+              ></v-text-field>
+
+              <!-- <v-select
+                v-model="select"
+                :items="items"
+                :rules="[v => !!v || 'Item is required']"
+                label="phone"
+                required
+              ></v-select> -->
+
+              <!-- <v-checkbox
+                v-model="checkbox"
+                :rules="[v => !!v || 'You must agree to continue!']"
+                label="Do you agree?"
+                required
+              ></v-checkbox> -->
+
+              <v-btn
+                :disabled="!valid"
+                color="success"
+                class="mr-4 paa"
+                @click="validate"
+                style="background-color:#066806;color:#fff"
+              >
+                Validate
+              </v-btn>
+
+              <v-btn
+                color="error"
+                class="mr-4 pbb"
+                @click="loginout"
+                style="background-color:#b51c1c;color:#fff"
+              >
+                退出登录
+              </v-btn>
+
+              <!-- <v-btn
+                color="error"
+                class="mr-4 pbb"
+                @click="changePhone"
+                style="background-color:#b51c1c;color:#fff"
+              >
+                更换绑定手机号
+              </v-btn> -->
+
+              <!-- <v-btn
+                color="warning"
+                @click="resetValidation"
+                style="background-color:#b51c1c;color:#fff"
+                class="pbb"
+              >
+                Reset Validation
+              </v-btn> -->
+            </v-form>
           </el-tab-pane>
           <el-tab-pane label="成为会员">
-            <el-card>
-              <h1>9.99永久会员</h1>
+              <h1 v-if="roleId === 3">9.99永久会员</h1>
+              <h1 v-else>您已经是会员啦</h1>
               <h6>注：由于是会员性质充值，付款完成后概不退款，如有问题请联系：1587973497@qq.com</h6>
-              <v-btn style="background-color:#FFD5E9;color:#F78CFF" @click="pay">确定成为会员</v-btn>
+              <v-btn style="background-color:#FFD5E9;color:#F78CFF" @click="pay" v-if="roleId === 3">确定成为会员</v-btn>
                <div id="payDiv" v-html="conent"></div>
-            </el-card>
           </el-tab-pane>
-          <el-tab-pane label="导出账单">导出账单</el-tab-pane>
+          <el-tab-pane label="导出账单" >
+            <el-select v-model="value" placeholder="请选择账本">
+              <el-option
+                v-for="item in billlist"
+                :key="item.value"
+                :label="item.text"
+                :value="item.value">
+              </el-option>
+            </el-select>
+            <v-btn @click="daochu">导出账单</v-btn>
+          </el-tab-pane>
           <el-tab-pane label="查看支出统计">查看支出统计</el-tab-pane>
         </el-tabs>
+        <!-- 更新绑定手机号对话框 -->
+        <el-dialog
+          title="更新绑定手机号"
+          :visible.sync="dialogVisible"
+          width="30%"
+          :before-close="handleClose">
+          <span>
+            <el-form :changePhoneData="data" :rules="rules" ref="changePhoneData" label-width="100px" class="demo-ruleForm">
+              <!-- <el-form-item label="原手机号">
+                <el-input disabled v-model="changePhoneData.userPhone"></el-input>
+              </el-form-item> -->
+              <el-form-item label="新手机号" style="width:100%">
+                <el-row>
+                  <el-col span="22">
+                    <el-input v-model="changePhoneData.newPhone"></el-input>
+                  </el-col>
+                  <el-col span="2">
+                    <v-btn style="margin-left:15px" @click="sendcode">获取验证码</v-btn>
+                  </el-col>   
+                </el-row>
+              </el-form-item>
+              <el-form-item label="验证码" prop="cat" style="width:100%">
+                <el-input v-model="changePhoneData.cat"></el-input>
+              </el-form-item>
+            </el-form>
+          </span>
+          <span slot="footer" class="dialog-footer">
+            <el-button @click="dialogVisible = false">取 消</el-button>
+            <el-button type="primary" @click="dialogVisible = false">确 定</el-button>
+          </span>
+        </el-dialog>
       </el-main>
   </el-container>
 </template>
 
 <script>
+//  export function downCustResource () {
+//     return request({
+//       url: '',
+//       method: 'get',
+//       headers: {
+//         'Content-Type': 'application/json',//设置请求头请求格式为JSON
+//         'token': window.sessionStorage.getItem('token') //设置token 其中K名要和后端协调好
+//       },
+//       responseType: 'blob',
+//       contentType: "application/octet-stream;charset=utf-8"
+//     })
+//   }
 export default {
   data(){
     return{
       tabPosition: 'left',
-      data:{
-        id:0,
-        roleId:0,
-        userCreatedate:'',
-        userEmail:'',
-        userHeader:'',
-        userName:'',
-        userPhone:'',
-        userPassword:''
-      },
+      valid: true,
+      nameRules: [
+        v => !!v || 'Name is required',
+        v => (v && v.length <= 10) || 'Name must be less than 10 characters',
+      ],
+      emailRules: [
+        v => /.+@.+\..+/.test(v) || 'E-mail must be valid'
+      ],
+      phoneRules:[
+        v => !!v || 'Phone is required',
+      ],
       aliPayCheckBean:{
         out_trade_no:''
       },
@@ -60,9 +190,98 @@ export default {
         body:'alipay'
       },
       id:'',
+      roleId:'',
+      imgurl:'',
+      data:{
+
+      },
+      dialogVisible:false,
+      changePhoneData:{
+        newPhone:'',
+        cat:'',
+      },
+      rules:{
+        cat:[{ required: true, message: '请输入验证码', trigger: 'blur' }],
+        newPhone:[{ required: true, message: '请输入新手机号', trigger: 'blur' }],
+      },
+      userId:'',
+      billlist:[],
+      value:'',
     }
   },
   methods:{
+    async daochu(){
+      // downCustResource().then((res) => {
+      //   // this.$ry.download(res.msg)
+      //   if (!res) {
+      //     return;
+      //   }
+      //   let blob = new Blob([res], {
+      //     type: "application/octet-stream",
+      //   });
+      //   let url = window.URL.createObjectURL(blob);
+      //   let link = document.createElement("a");
+      //   link.style.display = "none";
+      //   link.href = url;
+      //   link.download = "客导出.xlsx";
+      //   document.body.appendChild(link);
+      //   link.click();
+      //   document.body.removeChild(link)
+      // });
+
+      this.$http.get(`http://localhost:8888/bill/getreportthree/${this.userId}/${this.value}`, {
+        headers: {
+          'Content-Type': 'application/octet-stream',
+          'token': window.sessionStorage.getItem('token') 
+          },
+        responseType: 'arraybuffer',
+      }).then((res) => {
+
+        var b = new Blob([res.data], { type: 'application/vnd.ms-excel' });
+        // 根据传入的参数b创建一个指向该参数对象的URL
+        var url = URL.createObjectURL(b);
+        var link = document.createElement('a');
+        // 设置导出的文件名
+        link.download = '蓝鲸账本.xlsx';
+        link.href = url;
+        // 点击获取文件
+        link.click();
+      })
+
+
+      // this.$http({
+      //   method:'GET',
+      //   url:'http://localhost:8888/bill/getreportthree/1/200',
+      //   responeType:'blob',
+      //   headers: {
+      //     'Content-Type': 'application/json',//设置请求头请求格式为JSON
+      //     'token': window.sessionStorage.getItem('token') //设置token 其中K名要和后端协调好
+      //   },
+      //   params:{}
+      // })
+      // .then(res => res.blob())
+      // .then(data => {
+      //   let blobUrl = window.URL.createObjectURL(data);
+      //   download(blobUrl);
+      // });
+      // const {data:res} = await this.$http.get('')
+      // window.location.href("")
+    },
+    async getbilllist(){
+      const {data:res} = await this.$http.get('/billlist/getall?userId='+ this.userId )
+      if(res.meta.status === 200){
+        this.billlist = res.data
+      }else{
+        return this.$message.error('获取您的账本失败，请刷新后重试')
+      }
+      console.log(res);
+    },
+    // download(blobUrl) {
+    //   const a = document.createElement('a');
+    //   a.download = 'a.xsxl';
+    //   a.href = blobUrl;
+    //   a.click();
+    // },
     async pay(){
       const{data:res}=await this.$http.post('/alipay/pay',this.list)
       this.conent=res.data
@@ -73,10 +292,42 @@ export default {
         console.log(res);
       })
     },
+    loginout(){
+      window.sessionStorage.clear()
+      this.$router.push('/home')
+    },
+    validator(val){
+      return /^[1][3,4,5,7,8][0-9]{9}$/.test(val);
+    },
+    async validate () {
+      console.log("validate...");
+      this.$refs.form.validate()
+      const {data:res} = await this.$http.put('user/upd',this.data);
+        console.log(res); 
+    },
+    reset () {
+      this.$refs.form.reset()
+    },
+    // resetValidation () {
+    //   this.$refs.form.resetValidation()
+    // },
     gohome(){
       this.$router.push("/home")
       // this.$router.go(0) 
       
+    },
+    async sendcode(){
+      if(!this.validator(this.changePhoneData.newPhone)) return this.$message.error('请输入正确的新手机号')
+      // 发送短信
+      const {data:res} = await this.$http.get('user/smscodechangephone?phone=' + this.newPhone)
+      console.log(res);
+    },
+    changePhone(){
+      this.dialogVisible = true
+    },
+    handleClose(){
+      this.dialogVisible = false
+      this.$refs.changePhoneData.resetFields();
     },
     goabout(){
       this.$router.push("/aboutme")
@@ -84,9 +335,14 @@ export default {
     async getdata(){
       const {data:res} = await this.$http.get('user/getImg')
       if(res.meta.status === 200){
-        this.data = JSON.parse(res.data)
-        this.id = this.data.id
-        console.log(this.data);
+        const data = JSON.parse(res.data)
+        this.id = data.id
+        this.data = data
+        this.roleId = data.roleId
+        this.userId = data.id
+        this.imgurl = this.managerImg = 'https://cashbook-1310707740.cos.ap-shanghai.myqcloud.com/'+data.userHeader
+        console.log(data);
+        this.getbilllist()
       }else{
         return console.error('很遗憾没有查询到您的消息,请刷新后重试');
       }
@@ -96,12 +352,17 @@ export default {
   },
   created(){
     this.getdata()
-    
   }
 }
 </script>
 
 <style lang="less" scoped>
+// .paa {
+//     background-color: #066806;
+// }
+// .pbb {
+//     background-color: #b51c1c;
+// }
 .el-header {
     // z-index:9999;
     position: relative;
