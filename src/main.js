@@ -16,6 +16,14 @@ import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
 import swal from 'sweetalert';
 import LetItSnow from 'vue-let-it-snow';
+import Highcharts from 'highcharts/highstock';
+import HighchartsMore from 'highcharts/highcharts-more';
+import HighchartsDrilldown from 'highcharts/modules/drilldown';
+import Highcharts3D from 'highcharts/highcharts-3d';
+
+HighchartsMore(Highcharts)
+HighchartsDrilldown(Highcharts);
+Highcharts3D(Highcharts);
 Vue.use(LetItSnow);
 // Make BootstrapVue available throughout your project
 Vue.use(BootstrapVue)

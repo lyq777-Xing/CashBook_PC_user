@@ -213,7 +213,7 @@
             <div class="container pt-4">
                 <div class="row">
                     <div class="col-lg-4 mb-5 mb-lg-0">
-                        <a href=""><img alt="Image placeholder" src="static/picture/蓝鲸记账 (3).png" id="footer-logo"></a>
+                        <a href=""><img alt="Image placeholder" src="https://cashbook-1310707740.cos.ap-shanghai.myqcloud.com/logo3.png" id="footer-logo"></a>
                         <p class="mt-4 text-sm opacity-8 pr-lg-4">让涓涓细流汇成浪奔之涌、点点滴水聚成澎湃之势，迸发出改造大地、更新山河的洪荒之力。让一点一滴的理财习惯，成就更好的你！</p>
                         <ul class="nav mt-4">
                             <li class="nav-item"><a class="nav-link pl-0" href="javascript:;" target="_blank"><i class="fab fa-dribbble"></i></a></li>
