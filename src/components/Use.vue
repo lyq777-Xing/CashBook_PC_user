@@ -14,7 +14,7 @@
         </el-row>
       </el-header>
       <el-main>
-        <el-tabs v-model="activeName" :tab-position="tabPosition" style="height: 100%;" @tab-click="handleClick">
+        <el-tabs v-model="activeName" :tab-position="tabPosition"  @tab-click="handleClick">
           <el-tab-pane name="mine" label="个人信息" >
             <img style="width:200px" :src="imgurl" alt="">
             <v-form
@@ -124,6 +124,49 @@
               <!-- </div>
             </div> -->
           </el-tab-pane>
+          <el-tab-pane name="inputbill" label="导入账单">
+            <el-card style="width:100%;text-align: left;">
+              <p>操作说明：请点击"下载模板"按钮获取模板文件，在模板文件中录入账单数据后选择账本，点击"上传文件"按钮上传模板文件。</p>
+              <p>注意：导入账单需要严格遵循格式，不符合格式的数据将不会导入，请您谅解。</p>
+              <p>导入格式：分类分为支付分类与收入分类，已经列在下表，请您注意查看。每列都需要填写不允许有空行，否则系统报错，请您谅解。</p>
+              <v-btn @click="downloadTemplate()">下载模板</v-btn>
+              <el-upload style="margin-top:15px" :action="'http://localhost:8888/bill/upload/' + value2 + '/' +  userId"
+                :headers="headers"
+                name="excelFile"
+                :show-file-list="false"
+                :on-success="handleSuccess"
+                :before-upload="beforeUpload">
+                <v-btn>导入账单</v-btn>
+              </el-upload>
+              <br>
+              <el-select style="margin-top:15px;" v-model="value2" placeholder="请选择导入到哪个账本">
+                <el-option
+                  v-for="item in billlist"
+                  :key="item.value"
+                  :label="item.text"
+                  :value="item.value">
+                </el-option>
+              </el-select>
+              <el-table
+                :data="tableData"
+                stripe
+                :fit="true"
+                style="width:300px;margin-top: 15px;"
+                >
+                <el-table-column
+                  type="index">
+                </el-table-column>
+                <el-table-column
+                  prop="catName"
+                  label="分类名称">
+                </el-table-column>
+                <el-table-column
+                  prop="catDesc"
+                  label="分类属性">
+                </el-table-column>
+              </el-table>
+            </el-card>
+          </el-tab-pane>
         </el-tabs>
         <!-- 更新绑定手机号对话框 -->
         <el-dialog
@@ -178,6 +221,14 @@ import * as echarts from 'echarts';
 //     })
 //   }
 export default {
+  computed:{
+    headers(){
+      let token = window.sessionStorage.getItem('token');
+      return{
+        Authorization:token,
+      }
+    }
+  },
   data(){
     return{
       tabPosition: 'left',
@@ -219,6 +270,7 @@ export default {
       userId:'',
       billlist:[],
       value:'',
+      value2:'',
       // main:'',
       reportone:{
         x:[],
@@ -226,12 +278,16 @@ export default {
       },
       activeName:'mine',
       reporttwo:[],
+      tableData:[],
     }
   },
   mounted(){
-this.getReport()
+    // this.getReport()
   },
   methods:{
+    handleSuccess(){
+      this.$message.success('上传成功') 
+    },
     async daochu(){
       // downCustResource().then((res) => {
       //   // this.$ry.download(res.msg)
@@ -297,6 +353,29 @@ this.getReport()
         return this.$message.error('获取您的账本失败，请刷新后重试')
       }
       console.log(res);
+    },
+    downloadTemplate(){
+      const url = "/BlueWhale.xlsx"
+      window.location.href= url;
+    },
+    beforeUpload(){
+      console.log(this.value2);
+      if(this.value2==='' || this.value2 === null){
+        return this.$message.error('请先选择导入的账本')
+      }
+    },
+    async DateList(){
+      const {data:res} = await this.$http.get('/cat/getall')
+      console.log(res);
+      if(res.meta.status === 200){
+        this.$message.success('查询分类成功')
+        this.tableData = res.data
+      }else if(res.meta.status === 407){
+        this.$message.error('当前登录人数过多 请刷新重试')
+      }
+      else{
+        this.$message.error('查询分类失败')
+      }
     },
     // download(blobUrl) {
     //   const a = document.createElement('a');
@@ -384,6 +463,10 @@ this.getReport()
       }else if(tab.index === "3"){
         console.log("report...");
         this.getReport()
+      }else if(tab.index === "4"){
+        console.log("inputbill...");
+        this.getbilllist()
+        this.DateList()
       }
     },
     async getReport(){
@@ -514,6 +597,9 @@ this.getReport()
 // .pbb {
 //     background-color: #b51c1c;
 // }
+.p{
+  line-height: 20px;
+}
 .el-header {
     // z-index:9999;
     position: relative;
@@ -529,7 +615,7 @@ this.getReport()
     // background-color: #E9EEF3;
     color: #333;
     text-align: center;
-    line-height: 160px;
+    // line-height: 160px;
   }
   .el-container{
     height: 100%;
