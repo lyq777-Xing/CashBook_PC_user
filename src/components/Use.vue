@@ -130,7 +130,7 @@
               <p>注意：导入账单需要严格遵循格式，不符合格式的数据将不会导入，请您谅解。</p>
               <p>导入格式：分类分为支付分类与收入分类，已经列在下表，请您注意查看。每列都需要填写不允许有空行，否则系统报错，请您谅解。</p>
               <v-btn @click="downloadTemplate()">下载模板</v-btn>
-              <el-upload style="margin-top:15px" :action="'http://localhost:8888/bill/upload/' + value2 + '/' +  userId"
+              <el-upload style="margin-top:15px" :action="'http://120.48.85.254:8888/bill/upload/' + value2 + '/' +  userId"
                 :headers="headers"
                 name="excelFile"
                 :show-file-list="false"
@@ -307,7 +307,7 @@ export default {
       //   document.body.removeChild(link)
       // });
 
-      this.$http.get(`http://localhost:8888/bill/getreportthree/${this.userId}/${this.value}`, {
+      this.$http.get(`http://120.48.85.254:8888/bill/getreportthree/${this.userId}/${this.value}`, {
         headers: {
           'Content-Type': 'application/octet-stream',
           'token': window.sessionStorage.getItem('token') 
@@ -329,7 +329,7 @@ export default {
 
       // this.$http({
       //   method:'GET',
-      //   url:'http://localhost:8888/bill/getreportthree/1/200',
+      //   url:'http://120.48.85.254:8888/bill/getreportthree/1/200',
       //   responeType:'blob',
       //   headers: {
       //     'Content-Type': 'application/json',//设置请求头请求格式为JSON
@@ -474,7 +474,7 @@ export default {
       console.log(res2);
       if(res2.meta.status === 200){
         for (let x = 0; x < res2.data.length; x++) {
-          const reporttwod = {}
+          let reporttwod = {}
           reporttwod.name = res2.data[x].name
           reporttwod.y = res2.data[x].value
           this.reporttwo[x] = reporttwod

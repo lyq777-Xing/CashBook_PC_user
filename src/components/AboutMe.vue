@@ -12,7 +12,7 @@
     <!-- <a href="javascript:;" class="btn btn-block btn-dark text-truncate rounded-0 py-2 d-none d-lg-block" style="z-index:1000" target="_blank"><strong>This is a free demo.</strong> Click here to browse through 390+ Bootstrap 5 components →</a> -->
     <nav class="navbar navbar-expand-lg navbar-light bg-white">
         <div class="container">
-            <span @click="gohome" class="navbar-brand" ><img alt="Image placeholder" src="static/picture/蓝鲸记账 (2).png" id="navbar-logo"> </span><button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+            <span @click="gohome" class="navbar-brand" ><img alt="Image placeholder" src="https://cashbook-1310707740.cos.ap-shanghai.myqcloud.com/logo2%20(2).png" id="navbar-logo"> </span><button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
             <div class="collapse navbar-collapse" id="navbarCollapse">
                 <ul class="navbar-nav mt-4 mt-lg-0 ml-auto">
                     <li class="nav-item"><span class="nav-link" click="gohome">Overview</span></li>
